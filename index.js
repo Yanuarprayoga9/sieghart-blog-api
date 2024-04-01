@@ -7,10 +7,9 @@ import { verifyToken } from './middleware/verify-user.js';
 import authRoutes from './routes/auth.route.js';
 
 dotenv.config();
-export const { MONGO_DB_URL, PORT, JWT_SECRET } = process.env;
 
 mongoose
-  .connect(MONGO_DB_URL)
+  .connect(process.env.MONGO_DB_URL)
   .then(() => {
     console.log('MongoDb is connected');
   })
@@ -38,7 +37,7 @@ app.get('*', (req, res, next) => {
   next(errorHandler(404, 'NOT FOUND'));
 });
 
-app.listen(PORT, () => console.log('Server ready '));
+app.listen(process.env.PORT, () => console.log('Server ready '));
 
 // app.use((err, req, res) => {
 //   const statusCode = err.statusCode || 500;
