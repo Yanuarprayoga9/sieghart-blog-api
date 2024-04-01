@@ -44,7 +44,9 @@ export const signin = async (req, res, next) => {
   }
   try {
     const validUser = await User.findOne({ email });
-    console.log(validUser);
+    const { password, ...rest } = validUser._doc;
+
+    console.log(rest);
     // eslint-disable-next-line no-underscore-dangle
     const token = jwt.sign(validUser._doc, process.env.JWT_SECRET);
     const t = jwt.sign(validUser._doc, process.env.JWT_SECRET);
