@@ -23,6 +23,7 @@ module.exports = {
   },
   rules: {
     'import/extensions': ['error', 'ignorePackages', { js: 'always', jsx: 'never' }],
+    "allowAfterThis": true
   },
 
 };

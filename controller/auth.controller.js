@@ -1,6 +1,10 @@
+import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
+import dotenv from 'dotenv';
 import errorHandler from '../middleware/error.js';
 import User from '../model/user.model.js';
+
+dotenv.config();
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -41,6 +45,10 @@ export const signin = async (req, res, next) => {
   try {
     const validUser = await User.findOne({ email });
     console.log(validUser);
+    // eslint-disable-next-line no-underscore-dangle
+    const token = jwt.sign(validUser._doc, process.env.JWT_SECRET);
+    const t = jwt.sign(validUser._doc, process.env.JWT_SECRET);
+    res.json({ validUser, token });
   } catch (error) {
     next(error);
   }
