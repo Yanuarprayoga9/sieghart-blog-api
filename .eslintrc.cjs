@@ -25,6 +25,7 @@ module.exports = {
     'no-empty': 0,
     'no-irregular-whitespace': 0,
     'import/extensions': ['error', 'ignorePackages', { js: 'always', jsx: 'never' }],
+    "allowAfterThis": true
   },
 
 };
