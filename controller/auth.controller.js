@@ -1,21 +1,12 @@
-<<<<<<< HEAD
-import jwt from 'jsonwebtoken';
-=======
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable new-cap */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
->>>>>>> dev
 import bcryptjs from 'bcryptjs';
-import dotenv from 'dotenv';
 import errorHandler from '../middleware/error.js';
 import User from '../model/user.model.js';
 
 dotenv.config();
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -54,15 +45,6 @@ export const signin = async (req, res, next) => {
   }
   try {
     const validUser = await User.findOne({ email });
-<<<<<<< HEAD
-    const { password, ...rest } = validUser._doc;
-
-    console.log(rest);
-    // eslint-disable-next-line no-underscore-dangle
-    const token = jwt.sign(validUser._doc, process.env.JWT_SECRET);
-    const t = jwt.sign(validUser._doc, process.env.JWT_SECRET);
-    res.json({ validUser, token });
-=======
     if (!validUser) {
       return next(errorHandler(404, 'User Not Found'));
     }
@@ -75,7 +57,6 @@ export const signin = async (req, res, next) => {
       .status(200)
       .cookie('access_token', token)
       .json(rest);
->>>>>>> dev
   } catch (error) {
     return next(error);
   }
