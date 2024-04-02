@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import errorHandler from './middleware/error.js';
 import { verifyToken } from './middleware/verify-user.js';
 import authRoutes from './routes/auth.route.js';
+import postRoutes from './routes/post.route.js';
 
 dotenv.config();
 
@@ -23,7 +24,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 /// /// ROUTES /////
-app.use(authRoutes);
+app.use('/v1/auth', authRoutes);
+app.use(postRoutes);
 /// / ROUTES END ///
 
 app.get('/', (req, res) => {

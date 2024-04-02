@@ -1,7 +1,12 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable new-cap */
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import bcryptjs from 'bcryptjs';
 import errorHandler from '../middleware/error.js';
 import User from '../model/user.model.js';
 
+dotenv.config();
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -40,8 +45,30 @@ export const signin = async (req, res, next) => {
   }
   try {
     const validUser = await User.findOne({ email });
-    console.log(validUser);
+    if (!validUser) {
+      return next(errorHandler(404, 'User Not Found'));
+    }
+    const token = jwt.sign(
+      { id: validUser._id, isAdmin: validUser.isAdmin },
+      process.env.JWT_SECRET,
+    );
+    const { password: pass, ...rest } = validUser._doc;
+    return res
+      .status(200)
+      .cookie('access_token', token)
+      .json(rest);
   } catch (error) {
-    next(error);
+    return next(error);
   }
+};
+
+export const me = async (req, res) => {
+  const { page } = req.query;
+  const perPage = 1;
+  let userDoc;
+  if (page !== '') {
+    userDoc = await User.find({}).limit(perPage).skip(page);
+  }
+  userDoc = await User.find({});
+  res.json(userDoc);
 };
