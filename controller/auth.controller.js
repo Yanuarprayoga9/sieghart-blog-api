@@ -62,13 +62,11 @@ export const signin = async (req, res, next) => {
   }
 };
 
-export const me = async (req, res) => {
-  const { page } = req.query;
-  const perPage = 1;
-  let userDoc;
-  if (page !== '') {
-    userDoc = await User.find({}).limit(perPage).skip(page);
+export const me = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    return res.json(user);
+  } catch (error) {
+    return next(error);
   }
-  userDoc = await User.find({});
-  res.json(userDoc);
 };
