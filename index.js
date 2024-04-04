@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import cors from 'cors'
 import errorHandler from './middleware/error.js';
 import { verifyToken } from './middleware/verify-user.js';
 import authRoutes from './routes/auth.route.js';
@@ -19,7 +20,7 @@ mongoose
   });
 
 const app = express();
-
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 

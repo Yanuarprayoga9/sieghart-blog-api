@@ -20,3 +20,14 @@ export async function generate(req, res) {
     res.json('error');
   }
 }
+
+export const getPostByid = async(req,res,next) => {
+  const { id } = req.params
+  try {
+    const postDoc = await Post.findById(id)
+    console.log(postDoc)
+    return res.json(postDoc);
+  } catch (error) {
+    next(error)
+  }
+}
