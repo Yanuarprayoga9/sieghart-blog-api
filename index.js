@@ -20,10 +20,10 @@ mongoose
 
 const app = express();
 
-app.use(cors({
-  origin:['http://localhost:5173','https://sieghart-blog-api.vercel.app'],
-  credentials:true
-}))
+// app.use(cors({
+//   origin:['http://localhost:5173','https://sieghart-blog-api.vercel.app'],
+//   credentials:true
+// }))
 app.use(cookieParser());
 app.use(express.json());
 
