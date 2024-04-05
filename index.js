@@ -7,7 +7,7 @@ import errorHandler from './middleware/error.js';
 import { verifyToken } from './middleware/verify-user.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
-
+import cors from 'cors'
 dotenv.config();
 
 mongoose
@@ -20,9 +20,13 @@ mongoose
   });
 
 const app = express();
-app.use(cors())
-app.use(express.json());
+
+app.use(cors({
+  origin:'http://localhost:5173',
+  credentials:true
+}))
 app.use(cookieParser());
+app.use(express.json());
 
 /// /// ROUTES /////
 app.use('/v1/auth', authRoutes);
