@@ -48,6 +48,10 @@ export const signin = async (req, res, next) => {
     if (!validUser) {
       return next(errorHandler(404, 'User Not Found'));
     }
+    const validPassword = bcryptjs.compareSync(password, validUser.password);
+    if (!validPassword) {
+      return next(errorHandler(400, 'Invalid password'));
+    }
     const token = jwt.sign(
       { id: validUser._id, isAdmin: validUser.isAdmin },
       process.env.JWT_SECRET,
@@ -70,13 +74,3 @@ export const me = async (req, res, next) => {
   }
 };
 
-export const signout = (req, res, next) => {
-  try {
-    res
-      .clearCookie('access_token')
-      .status(200)
-      .json('User has been signed out');
-  } catch (error) {
-    next(error);
-  }
-};
