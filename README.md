@@ -1,3 +1,19 @@
+# PREREQUISITE 
+node js 21.x
+
+# INSTAL
+
+clone project
+```json
+"git clone =https://github.com/Yanuarprayoga9/sieghart-blog-api.git"
+```
+setup .env
+```json
+"PORT=5555"
+"MONGO_DB_URL="
+"JWT_SECRET="
+```
+
 # API SPEC
 ### BASE URL = https://sieghart-blog-api.vercel.app/v1
 
