@@ -7,7 +7,6 @@ import errorHandler from './middleware/error.js';
 import { verifyToken } from './middleware/verify-user.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
-import cors from 'cors'
 dotenv.config();
 
 mongoose
