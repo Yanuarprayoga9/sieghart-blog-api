@@ -21,7 +21,7 @@ mongoose
 const app = express();
 
 app.use(cors({
-  origin:'http://localhost:5173',
+  origin:['http://localhost:5173','https://sieghart-blog-api.vercel.app'],
   credentials:true
 }))
 app.use(cookieParser());
@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
   res.send({ status: 'OK', message: 'API SERVICE RUNNING' });
 });
 
+
 app.get('/auth-check', verifyToken, (req, res) => {
   res.send(req.user);
 });
@@ -43,7 +44,7 @@ app.get('*', (req, res, next) => {
   next(errorHandler(404, 'NOT FOUND'));
 });
 
-app.listen(process.env.PORT, () => console.log('Server ready '));
+app.listen(5000, () => console.log('Server ready '));
 
 // app.use((err, req, res) => {
 //   const statusCode = err.statusCode || 500;
