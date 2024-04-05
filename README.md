@@ -37,7 +37,18 @@ Response Body Success :
 
 ```json
 {
-  "Signup successful"
+
+    "user": {
+        "_id": "660f708fa058ee8749c0a65f",
+        "username": "yanuar ganteng",
+        "email": "yanuarprayoga@gmail.com",
+        "profilePicture": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        "isAdmin": false,
+        "createdAt": "2024-04-05T03:31:27.266Z",
+        "updatedAt": "2024-04-05T03:31:27.266Z",
+        "__v": 0
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGY3MDhmYTA1OGVlODc0OWMwYTY1ZiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MTIyODkxMDF9.qTZTyeAK6DEjCmekBEU2_n7Kg5JmW_pGS1l3e-gR0Zg"
 }
 ```
 
@@ -68,7 +79,7 @@ Response Body Success :
 
 ```json
 {
-{
+
     "user": {
         "_id": "660f708fa058ee8749c0a65f",
         "username": "yanuar ganteng",
@@ -80,7 +91,7 @@ Response Body Success :
         "__v": 0
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGY3MDhmYTA1OGVlODc0OWMwYTY1ZiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MTIyODkxMDF9.qTZTyeAK6DEjCmekBEU2_n7Kg5JmW_pGS1l3e-gR0Zg"
-}}
+}
 ```
 
 Response Body Error :
