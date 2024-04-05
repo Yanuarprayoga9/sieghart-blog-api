@@ -45,15 +45,6 @@ export const signin = async (req, res, next) => {
   }
   try {
     const validUser = await User.findOne({ email });
-<<<<<<< HEAD
-    const { password, ...rest } = validUser._doc;
-
-    console.log(rest);
-    // eslint-disable-next-line no-underscore-dangle
-    const token = jwt.sign(validUser._doc, process.env.JWT_SECRET);
-    const t = jwt.sign(validUser._doc, process.env.JWT_SECRET);
-    res.json({ validUser, token });
-=======
     if (!validUser) {
       return next(errorHandler(404, 'User Not Found'));
     }
