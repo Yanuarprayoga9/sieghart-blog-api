@@ -7,7 +7,6 @@ import errorHandler from './middleware/error.js';
 import { verifyToken } from './middleware/verify-user.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
-import cors from 'cors'
 dotenv.config();
 
 mongoose
@@ -36,7 +35,9 @@ app.use(postRoutes);
 app.get('/', (req, res) => {
   res.send({ status: 'OK', message: 'API SERVICE RUNNING' });
 });
-
+app.get('/v1', (req, res) => {
+  res.send({ status: 'OK', message: 'API SERVICE RUNNING' });
+});
 app.get('/auth-check', verifyToken, (req, res) => {
   res.send(req.user);
 });
