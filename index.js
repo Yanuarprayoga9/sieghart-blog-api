@@ -35,7 +35,9 @@ app.use(postRoutes);
 app.get('/', (req, res) => {
   res.send({ status: 'OK', message: 'API SERVICE RUNNING' });
 });
-
+app.get('/v1', (req, res) => {
+  res.send({ status: 'OK', message: 'API SERVICE RUNNING' });
+});
 app.get('/auth-check', verifyToken, (req, res) => {
   res.send(req.user);
 });
