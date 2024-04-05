@@ -56,8 +56,10 @@ export const signin = async (req, res, next) => {
       { id: validUser._id, isAdmin: validUser.isAdmin },
       process.env.JWT_SECRET
     );
+
     const { password: pass, ...rest } = validUser._doc;
     return res.status(200).json({ user: rest, token });
+
   } catch (error) {
     return next(error);
   }

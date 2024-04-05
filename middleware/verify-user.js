@@ -13,6 +13,7 @@ export const verifyToken = (req, res, next) => {
     // Menambahkan token ke objek permintaan untuk digunakan di rute berikutnya jika diperlukan
     req.token = token;
   }
+
   if (!token) {
     return next(errorHandler(401, "Unauthorized"));
   }
