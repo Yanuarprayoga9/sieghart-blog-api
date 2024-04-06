@@ -17,7 +17,7 @@ setup .env
 
 
 # DATABASE DOCUMENTATION
-see documentation [here](database.md)
+see documentation [here](database.md)<br />
 erd = https://drive.google.com/file/d/1ut7GntsVowLVtHwsDnuhmxDXfZ2hbI8R/view?usp=sharing
 
 
