@@ -20,10 +20,25 @@ mongoose
 
 const app = express();
 
-app.use(cors({
-  origin:['http://localhost:5173','https://sieghart-blog-api.vercel.app'],
-  credentials:true
-}))
+// app.use(cors({
+//   origin:['http://localhost:5173','https://sieghart-blog-api.vercel.app'],
+//   credentials:true
+// }))
+const allowedOrigins = ['https://sieghart-blog.vercel.app'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+// Terapkan middleware CORS dengan opsi yang sudah ditentukan
+app.use(cors(corsOptions));
+
 app.use(cookieParser());
 app.use(express.json());
 
