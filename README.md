@@ -17,9 +17,8 @@ setup .env
 
 
 # DATABASE DOCUMENTATION
-no sql database
 see documentation [here](database.md)
-### https://drive.google.com/file/d/1ut7GntsVowLVtHwsDnuhmxDXfZ2hbI8R/view?usp=sharing
+https://drive.google.com/file/d/1ut7GntsVowLVtHwsDnuhmxDXfZ2hbI8R/view?usp=sharing
 
 
 
