@@ -1,8 +1,9 @@
 # PREREQUISITE 
-node js 21.x
+node js 21.x.
+npm 10.xx
+
 
 # INSTAL
-
 clone project
 ```json
 "git clone =https://github.com/Yanuarprayoga9/sieghart-blog-api.git"
@@ -14,11 +15,19 @@ setup .env
 "JWT_SECRET="
 ```
 
+
+# DATABASE DOCUMENTATION
+no sql database
+```json
+'https://drive.google.com/file/d/1ut7GntsVowLVtHwsDnuhmxDXfZ2hbI8R/view?usp=sharing'
+```
+
+
 # API SPEC
 ### BASE URL = https://sieghart-blog-api.vercel.app/v1
 
-
 ## AUTHENTICATION
+
 ### Signup 
 
 Endpoint : POST /auth/signup
