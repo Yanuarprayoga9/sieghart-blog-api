@@ -151,3 +151,35 @@ Response Body Error :
 "Error: "
 }
 ```
+
+## USER
+### Update User
+Endpoint : Put /user/google
+
+Request Body :
+
+```json
+{
+  "username":"yanuar prayoga"
+  "email": "yanuarprayoga@gmail.com",
+  "password": "yanuar123",
+}
+```
+
+Response Body Success :
+
+```json
+{
+{
+   "update user success"
+}}
+```
+
+Response Body Error :
+
+```json
+{
+"Error: 401 "
+}
+```
+
