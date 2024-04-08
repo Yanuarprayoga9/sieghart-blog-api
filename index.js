@@ -6,7 +6,9 @@ import cors from "cors";
 import errorHandler from "./middleware/error.js";
 import { verifyToken } from "./middleware/verify-user.js";
 import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
+import User from "./model/user.model.js";
 dotenv.config();
 
 mongoose
@@ -45,6 +47,7 @@ app.use(express.json());
 
 /// /// ROUTES /////
 app.use("/v1/auth", authRoutes);
+app.use("/v1/USER", userRoutes);
 app.use(postRoutes);
 /// / ROUTES END ///
 
