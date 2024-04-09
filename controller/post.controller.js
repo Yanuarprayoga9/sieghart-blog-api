@@ -1,33 +1,35 @@
-import Post from '../model/post.model.js';
-import postData from '../utils/dummy-post.js';
+import errorHandler from "../middleware/error.js";
+import Post from "../model/post.model.js";
+import postData from "../utils/dummy-post.js";
 
 export async function getPost(req, res) {
   const { slug } = req.query;
-  let postDoc;
-  if (slug !== '') {
-    postDoc = await Post.find({ slug });
-    return res.json(postDoc);
-  }
-  postDoc = await Post.find({});
+  
+  let postDoc = await Post.find({});
   return res.json(postDoc);
 }
 
-export async function generate(req, res) {
-  try {
-    const postDoc = await Post.create(postData);
-    res.json(postDoc);
-  } catch (error) {
-    res.json('error');
+export const create = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, "YOur are not allowed to create a post"));
   }
-}
-
-export const getPostByid = async(req,res,next) => {
-  const { id } = req.params
-  try {
-    const postDoc = await Post.findById(id)
-    console.log(postDoc)
-    return res.json(postDoc);
-  } catch (error) {
-    next(error)
+  if (!req.body.title || !req.body.content) {
+    return next(errorHandler(400, "Please provide all required fields"));
   }
-}
+  const slug = req.body.title
+    .split(" ")
+    .join("-")
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9-]/g, "");
+  const newPost = new Post({
+    ...req.body,
+    slug,
+    userId: req.user.id,
+  });
+  try {
+    const savedPost = await newPost.save();
+    res.status(201).json(savedPost);
+  } catch (error) {
+    next(error);
+  }
+};

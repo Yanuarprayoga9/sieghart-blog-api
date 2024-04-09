@@ -47,8 +47,8 @@ app.use(express.json());
 
 /// /// ROUTES /////
 app.use("/v1/auth", authRoutes);
-app.use("/v1/USER", userRoutes);
-app.use(postRoutes);
+app.use("/v1/user", userRoutes);
+app.use("/v1/post", postRoutes);
 /// / ROUTES END ///
 
 app.get("/", (req, res) => {
