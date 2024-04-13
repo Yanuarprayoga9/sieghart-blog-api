@@ -2,16 +2,62 @@ import errorHandler from "../middleware/error.js";
 import Post from "../model/post.model.js";
 import postData from "../utils/dummy-post.js";
 
-export async function getPost(req, res) {
-  const { slug } = req.query;
-  
-  let postDoc = await Post.find({});
-  return res.json(postDoc);
+export async function getPost(req, res, next) {
+  try {
+    const {
+      startIndex,
+      limit,
+      sortDirection,
+      userId,
+      category,
+      slug,
+      postId,
+      searchTerm,
+    } = req.query;
+    const posts = await Post.find({
+      ...(userId && { userId }),
+      ...(slug && { slug }),
+      ...(category && { category }),
+      ...(postId && { postId }),
+      ...(searchTerm && {
+        $or: [
+          { title: { $regex: searchTerm, $options: "i" } },
+          { content: { $regex: searchTerm, $options: "i" } },
+        ],
+      }),
+    })
+      .sort({ updatedAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
+
+    const totalPosts = await Post.countDocuments();
+
+    const now  = new Date();
+    //  get date of 1 month  ago (-1)
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    
+    const lastMonthPosts = await Post.countDocuments({
+      createdAt:{
+        $gte : oneMonthAgo
+      },
+
+    })
+    
+    return res.status(200).json({
+      posts,
+      totalPosts,
+      lastMonthPosts,
+    });
+  } catch (error) {}
 }
 
 export const create = async (req, res, next) => {
   if (!req.user.isAdmin) {
-    return next(errorHandler(403, "YOur are not allowed to create a post"));
+    return next(errorHandler(403, "You are not allowed to create a post"));
   }
   if (!req.body.title || !req.body.content) {
     return next(errorHandler(400, "Please provide all required fields"));
@@ -29,6 +75,41 @@ export const create = async (req, res, next) => {
   try {
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deletepost = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to delete this post'));
+  }
+  try {
+    await Post.findByIdAndDelete(req.params.postId);
+    res.status(200).json('The post has been deleted');
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatepost = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to update this post'));
+  }
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.postId,
+      {
+        $set: {
+          title: req.body.title,
+          content: req.body.content,
+          category: req.body.category,
+          image: req.body.image,
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedPost);
   } catch (error) {
     next(error);
   }
