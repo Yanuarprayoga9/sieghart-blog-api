@@ -8,7 +8,7 @@ import { verifyToken } from "./middleware/verify-user.js";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
-import User from "./model/user.model.js";
+import commentRoutes from "./routes/comment.route.js";
 dotenv.config();
 
 mongoose
@@ -47,8 +47,9 @@ app.use(express.json());
 
 /// /// ROUTES /////
 app.use("/v1/auth", authRoutes);
-app.use("/v1/USER", userRoutes);
-app.use(postRoutes);
+app.use("/v1/user", userRoutes);
+app.use("/v1/post", postRoutes);
+app.use("/v1/comment", commentRoutes);
 /// / ROUTES END ///
 
 app.get("/", (req, res) => {
